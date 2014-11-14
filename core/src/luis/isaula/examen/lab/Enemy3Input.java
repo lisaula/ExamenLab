@@ -20,6 +20,7 @@ public class Enemy3Input extends InputListener{
 		enemigo.remove();
 		ClasePrincipal.contE3++;
 		ClasePrincipal.contE++;
+		System.exit(0);
 		return super.touchDown(event, x, y, pointer, button);
 	}
 }

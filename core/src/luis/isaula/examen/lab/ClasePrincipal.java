@@ -6,9 +6,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.Files.FileType;
+import com.badlogic.gdx.audio.Music; 
 
 public class ClasePrincipal extends ApplicationAdapter {
 	Texture img;
+	Music musica;
 	Stage stage, menu, go;
 	int pos, e=0,coins=0, health=5;
 	static int contE = 0, contC = 0, contE3=0, contC2=0, afuera=0, coinsAfuera=0, pausa=0;
@@ -19,6 +22,9 @@ public class ClasePrincipal extends ApplicationAdapter {
 	@Override
 	public void create () {
 		img = new Texture("nubes.jpg");
+		musica = Gdx.audio.newMusic(Gdx.files.getFileHandle("Theme.mp3", FileType.Internal));
+		musica.setLooping(true);
+		musica.play();
 		Image fondo = new Image(img);
 		Image m = new Image(new Texture("Menu.png"));
 		Image over = new Image(new Texture("GameOver.png"));
@@ -42,6 +48,7 @@ public class ClasePrincipal extends ApplicationAdapter {
 		
 		
 		stage.addActor(fondo);
+		stage.addActor(new PersonajeAnimado()); 
 		
 		menu.addActor(m);
 		go.addActor(over);
@@ -68,7 +75,10 @@ public class ClasePrincipal extends ApplicationAdapter {
 			stage.draw();
 			stage.act();
 			empezar=true;
-			
+		/*
+		 * stage.pause();
+		 * 	
+		 */
 			if(perdio || health<=0){
 				go.draw();
 				go.act();
@@ -148,7 +158,7 @@ public class ClasePrincipal extends ApplicationAdapter {
 		
 			
 		
-		if(pos%50==0){
+		if(pos%40==0){
 		System.out.println("\nVIDA: "+health);
 		System.out.println("ENEMIGOS CREADOS: "+e+" ENEMIGOS ELIMINADOS: "+contE);
 		System.out.println("Coins CREADOS: "+coins+" Coins ELIMINADOS: "+contC);
@@ -167,8 +177,8 @@ public class ClasePrincipal extends ApplicationAdapter {
 	public void AddEnemy1(){
 		int rnd= (int)(Math.random() * 2);
 		Enemy enemigo[]= new Enemy[2];
-		enemigo[0]= new Enemy(new Texture("Bomba_TWW.png"));
-		enemigo[1]= new Enemy(new Texture("Bomba.png"));
+		enemigo[0]= new Enemy(new Texture("Circulo.png"));
+		enemigo[1]= new Enemy(new Texture("Estrella.png"));
 		
 		enemigo[1].setHeight(95);
 		enemigo[1].setWidth(80);
@@ -186,7 +196,7 @@ public class ClasePrincipal extends ApplicationAdapter {
 	}
 	
 	public void addCoinsPlus(){
-		Enemy2 enemigo= new Enemy2(new Texture("coin-money-5.png"));
+		Enemy2 enemigo= new Enemy2(new Texture("Moneda.png"));
 		
 		enemigo.setHeight(70);
 		enemigo.setWidth(80);
@@ -202,7 +212,7 @@ public class ClasePrincipal extends ApplicationAdapter {
 	}
 	
 	public void AddEnemy3(){
-		Enemy3 enemigo= new Enemy3(new Texture("handgrenade.png"));
+		Enemy3 enemigo= new Enemy3(new Texture("MultiStar.png"));
 		
 		enemigo.setHeight(90);
 		enemigo.setWidth(80);
@@ -218,7 +228,7 @@ public class ClasePrincipal extends ApplicationAdapter {
 	public void AddCoins(){
 		
 			
-		Coins c = new Coins(new Texture("coin.png"));
+		Coins c = new Coins(new Texture("Flama.png"));
 		
 		
 		c.setHeight(80);
